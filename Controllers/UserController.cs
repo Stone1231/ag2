@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ag2.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace ag2.Controllers
 {
@@ -27,6 +29,17 @@ namespace ag2.Controllers
         public IEnumerable<User> GetUsers()
         {
             return _context.Users;
+        }
+
+        [HttpGet("webroot")]
+        public String GetWebRoot(){
+            //return _hostingEnvironment.ContentRootPath;
+            return _hostingEnvironment.WebRootPath;
+        }
+
+        [HttpGet("content")]
+        public String GetContent(){
+            return _hostingEnvironment.ContentRootPath;            
         }
 
         // GET: api/User/5
@@ -84,28 +97,30 @@ namespace ag2.Controllers
         }
 
         [HttpPost("ufile")]
-        public IActionResult Upload(IFormFile file)
+        public string Upload(IFormFile file)
         {
-            // if (file != null)
-            // {
-            //    //http://vmiv.blogspot.tw/2016/12/aspnet-coreservermappath.html 
-            //     var PhotoPath = HttpContext..MapPath("~/Files/Stud");
-            //     if (!Directory.Exists(PhotoPath))
-            //     {
-            //         Directory.CreateDirectory(PhotoPath);
-            //     }
-            //     var PhotoFileName = Path.Combine(PhotoPath, model.PhotoFile.FileName);
-            //     if (System.IO.File.Exists(PhotoFileName))
-            //     {
-            //         System.IO.File.Delete(PhotoFileName);
-            //     }
-            //     model.PhotoFile.SaveAs(PhotoFileName);
-            //     model.Info.Photo = model.PhotoFile.FileName;
-            // }
+            if (file != null)
+            {
+                var folder = _hostingEnvironment.WebRootPath + "/wwwroot/dist/img";
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
 
-           var _file = file; 
+                var filePath = Path.Combine(folder, file.FileName);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
 
-            return Ok();
+                using (var fileStream = new FileStream(filePath, FileMode.Create)) {
+                    //await file.CopyToAsync(fileStream);
+                    file.CopyTo(fileStream);
+                }
+
+                return file.FileName;            
+            }
+            return "";
         }         
 
         // POST: api/User
