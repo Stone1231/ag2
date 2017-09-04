@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ag2.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ag2.Controllers
 {
@@ -27,6 +28,11 @@ namespace ag2.Controllers
         public IEnumerable<User> GetUsers()
         {
             return _context.Users;
+        }
+
+        [HttpGet("host")]
+        public String GetHost(){
+            return _hostingEnvironment.ContentRootPath;
         }
 
         // GET: api/User/5
