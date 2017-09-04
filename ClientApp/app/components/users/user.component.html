@@ -1,0 +1,44 @@
+<table>
+    <tbody>
+        <tr>
+            <th>id</th>
+            <td>
+                <span *ngIf="row.id > 0">
+                    {{row.id}}
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <th>name</th>
+            <td>
+                <input [(ngModel)]="row.name" />
+            </td>
+        </tr>
+        <tr>
+            <th>hight</th>
+            <td>
+                <input [(ngModel)]="row.hight" />
+            </td>
+        </tr>
+        <tr>
+            <th>birthday</th>
+            <td>
+                <input type="date" [(ngModel)]="row.birthday" />
+            </td>
+        </tr>
+        <tr>
+            <th>photo</th>
+            <td>
+                <ng-container *ngIf="row.photo; else elseTemplate">
+                    {{row.photo}}
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <input type="file" (change)="getFile($event)" />
+                </ng-template>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<button (click)="onBack.emit()">back</button>
+<button (click)="save()">save</button>
