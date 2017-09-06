@@ -29,8 +29,9 @@
         <tr>
             <th>photo</th>
             <td>
-                <ng-container *ngIf="row.photo; else elseTemplate">
-                    {{row.photo}}
+                <ng-container *ngIf="photo; else elseTemplate">
+                    <img height="200" *ngIf="photo" src="/img/{{photo}}" />
+                    <input type="file" (change)="getFile($event)" />
                 </ng-container>
                 <ng-template #elseTemplate>
                     <input type="file" (change)="getFile($event)" />
@@ -42,3 +43,4 @@
 
 <button (click)="onBack.emit()">back</button>
 <button (click)="save()">save</button>
+<button (click)="savePromise()">save promise</button>

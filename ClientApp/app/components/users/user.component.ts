@@ -2,6 +2,7 @@ import { Component, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
     selector: 'user',
@@ -17,6 +18,8 @@ export class UserComponent {
     public row: User;
 
     photoFile: File;
+
+    photo:string;//為了控制只bind1次,把這個欄位抽出來
 
     @Output()
     onBack: EventEmitter<any> = new EventEmitter<any>();
@@ -51,6 +54,7 @@ export class UserComponent {
     read(id: number) {
         this.service.getSingle(id.toString()).subscribe(d => {
             this.row = d;
+            this.photo = d.photo;
         })
     }
 
@@ -63,8 +67,9 @@ export class UserComponent {
             if (this.photoFile) {
                 var fileOb = this.service.postFile(this.photoFile);
 
-                updateOb.subscribe(
+                fileOb.subscribe(
                     res => {
+                        this.row.photo = res;
                         updateOb.subscribe(
                             res => {
                                 this.onSave.emit();
@@ -80,21 +85,88 @@ export class UserComponent {
                     }
                 );
             }
-
-
-            // this.service.put(this.row.id.toString(), this.row).subscribe(
-            //     res => {
-            //         this.onSave.emit();
-            //     }
-            // );
         } else {
-            this.service.post(this.row).subscribe(
-                res => {
-                    this.onSave.emit();
-                }
-            );
+            var postOb = this.service.post(this.row);
+
+            if (this.photoFile) {
+                var fileOb = this.service.postFile(this.photoFile);
+
+                fileOb.subscribe(
+                    res => {
+                        this.row.photo = res;
+                        postOb.subscribe(
+                            res => {
+                                this.onSave.emit();
+                            }
+                        );
+                    }
+                );
+            }
+            else {
+                postOb.subscribe(
+                    res => {
+                        this.onSave.emit();
+                    }
+                );
+            }
         }
     }
+
+    savePromise() {
+        //console.log(this.row);
+        if (this.row.id > 0) {
+
+            var updateOb = this.service.put(this.row.id.toString(), this.row).toPromise();
+
+            
+
+            if (this.photoFile) {
+                var fileOb = this.service.postFile(this.photoFile).toPromise();
+
+                fileOb.then(
+                    res => {
+                        this.row.photo = res;
+                        updateOb.then(
+                            res => {
+                                this.onSave.emit();
+                            }
+                        );
+                    }
+                );
+            }
+            else {
+                updateOb.then(
+                    res => {
+                        this.onSave.emit();
+                    }
+                );
+            }
+        } else {
+            var postOb = this.service.post(this.row).toPromise();
+
+            if (this.photoFile) {
+                var fileOb = this.service.postFile(this.photoFile).toPromise();
+
+                fileOb.then(
+                    res => {
+                        this.row.photo = res;
+                        postOb.then(
+                            res => {
+                                this.onSave.emit();
+                            }
+                        );
+                    }
+                );
+            }
+            else {
+                postOb.then(
+                    res => {
+                        this.onSave.emit();
+                    }
+                );
+            }
+        }
+    }    
 
     getFile(e: any) {
         //let files:FileList = e.target.value;

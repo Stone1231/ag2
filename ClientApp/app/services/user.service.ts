@@ -48,7 +48,6 @@ export class UserService {
     }
 
     postFile(file1?:File) {
-
             var fData = new FormData();
             if(file1 !=null){
                 fData.append("file", file1);

@@ -101,7 +101,7 @@ namespace ag2.Controllers
         {
             if (file != null)
             {
-                var folder = _hostingEnvironment.WebRootPath + "/wwwroot/dist/img";
+                var folder = _hostingEnvironment.WebRootPath + "/img";
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
