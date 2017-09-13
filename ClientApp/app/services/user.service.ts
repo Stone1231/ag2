@@ -1,5 +1,5 @@
 import { Injectable, Injector, Inject, ValueProvider } from '@angular/core';
-import {Headers,  RequestOptions,  Http,  Response,  Request} from '@angular/http';
+import { Headers, RequestOptions, Http, Response, Request } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -17,6 +17,17 @@ export class UserService {
 
         return this.http.get(endpointUrl)
             .map((response: Response) => <User>response.json());
+    }
+
+    getQuery(keyWord?: string) {
+        let endpointUrl = `${this.url}/query`;
+
+        let _headers = new Headers({ 'Content-Type': 'application/json' });
+        return this.http.post(
+            endpointUrl,
+            JSON.stringify(keyWord),
+            new RequestOptions({ headers: _headers })
+        ).map(m => <User[]>m.json());
     }
 
     getAll() {
@@ -47,18 +58,18 @@ export class UserService {
         //.subscribe((response) => { });
     }
 
-    postFile(file1?:File) {
-            var fData = new FormData();
-            if(file1 !=null){
-                fData.append("file", file1);
-            }
-            let _headers = new Headers({ 'Accept': 'application/json' });
-            
-            return this.http.post(
-                `${this.url}/ufile`,
-                fData,
-                new RequestOptions({ headers: _headers })
-            ).map((response: Response) => <string>response.json());;
+    postFile(file1?: File) {
+        var fData = new FormData();
+        if (file1 != null) {
+            fData.append("file", file1);
+        }
+        let _headers = new Headers({ 'Accept': 'application/json' });
+
+        return this.http.post(
+            `${this.url}/ufile`,
+            fData,
+            new RequestOptions({ headers: _headers })
+        ).map((response: Response) => <string>response.json());;
     }
 
     post(model: User) {

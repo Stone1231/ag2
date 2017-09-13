@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import 'rxjs/add/operator/toPromise';
-
+ 
 @Component({
     selector: 'user',
     templateUrl: './user.component.html',

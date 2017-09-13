@@ -16,6 +16,8 @@ export class UsersComponent {
 
     public readId: number = 0;
 
+    public keyWord:string = "";
+
     constructor(private service: UserService) {
 
     }
@@ -31,6 +33,12 @@ export class UsersComponent {
             this.rows = d;
         })
     }
+
+    queryData() {
+        this.service.getQuery(this.keyWord).subscribe(d => {
+            this.rows = d;
+        })
+    } 
 
     readSingle(id: number) {
         this.readId = id;

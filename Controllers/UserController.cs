@@ -163,5 +163,24 @@ namespace ag2.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
+
+        // GET: api/User/query
+        [HttpPost("query")]
+        public async Task<IActionResult> Query([FromBody] string keyWord)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var users = await _context.Users.Where(m=>m.Name.Contains(keyWord)).ToListAsync();
+
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
+        }        
     }
 }

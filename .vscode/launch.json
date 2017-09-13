@@ -4,15 +4,8 @@
    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
    "version": "0.2.0",
    "configurations": [
-       {
-           "type": "chrome",
-           "request": "launch",
-           "name": "Chrome",
-           "url": "http://localhost:5000",
-           "webRoot": "${workspaceRoot}/ClientApp"
-       },
         {
-            "name": "api .NET Core Launch (web)",
+            "name": "web server",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -43,6 +36,13 @@
                 "/Views": "${workspaceRoot}/Views"
             }
         },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "chrome client",
+            "url": "http://localhost:5000",
+            "webRoot": "${workspaceRoot}/ClientApp"
+        },        
         {
             "name": ".NET Core Attach",
             "type": "coreclr",
