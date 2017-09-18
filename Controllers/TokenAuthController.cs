@@ -54,7 +54,10 @@ namespace ag2.Controllers
 
             ClaimsIdentity identity = new ClaimsIdentity(
                 new GenericIdentity(login.Username, "TokenAuth"),
-                new[] { new Claim("Username", login.Username.ToString())}
+                new[] { 
+                    new Claim(ClaimTypes.Name, login.Username.ToString()),
+                    new Claim(ClaimTypes.Role, "dev")
+                    }
             );
 
             var securityToken = handler.CreateToken(new SecurityTokenDescriptor
@@ -73,8 +76,7 @@ namespace ag2.Controllers
         public IActionResult GetUserInfo()
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;
-            
-            
+
             return Ok(new
             {
                 UserName = claimsIdentity.Name
