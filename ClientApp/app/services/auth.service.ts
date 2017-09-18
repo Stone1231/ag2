@@ -79,8 +79,15 @@ export class AuthService implements CanActivate {
     private handleError(error: any) {
         let errMsg = (error.message) ? error.message :
             error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg);
-        //alert(errMsg);
+        //console.error(error.ok);
+        //console.error(error._body);
+        //console.error(error.status);
+        //console.error(errMsg);
+        switch(error.status){
+            case 401:
+            //...              
+            break;
+        }
         return Observable.throw(errMsg);
     }
 }

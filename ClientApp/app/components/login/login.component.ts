@@ -29,7 +29,7 @@ import { AuthService } from "../../services/auth.service";
     </tr>
     <tr>
     <td>session</td>
-    <td>{{getName}}</td>
+    <td>{{getName}} {{getRole}}</td>
     </tr>
 </table>
           </div>
@@ -41,6 +41,7 @@ export class LoginComponent implements OnDestroy {
     userName: string;
     password: string;
     getName: string;
+    getRole: string;
     private postStream$: Subscription;
 
     constructor(private authService: AuthService, private router: Router) { }
@@ -59,6 +60,7 @@ export class LoginComponent implements OnDestroy {
                 this.authService.getUserInfo$().subscribe(
                     r => {
                         this.getName = r.userName;
+                        this.getRole = r.role;
                     }
                 );
                 //this.router.navigate(["home"]);

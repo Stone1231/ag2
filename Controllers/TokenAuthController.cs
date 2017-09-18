@@ -42,9 +42,10 @@ namespace ag2.Controllers
             else
             {
                 //return Unauthorized();
-                return StatusCode(401, new{
-                    Msg = "Username or password is invalid"
-                });
+                // return StatusCode(401, new{
+                //     Msg = "Username or password is invalid"
+                // });
+                return StatusCode(401, "Username or password is invalid");
             }
         }
 
@@ -77,9 +78,11 @@ namespace ag2.Controllers
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;
 
+
             return Ok(new
             {
-                UserName = claimsIdentity.Name
+                UserName = claimsIdentity.Name,
+                Role = claimsIdentity.Claims.Single(m=>m.Type == ClaimTypes.Role).Value
             });
 
         }
