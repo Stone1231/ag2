@@ -36,7 +36,12 @@
                     <a [routerLink]="['/login']">
                         <span class='glyphicon glyphicon-th-list'></span> Login
                     </a>
-                </li>                
+                </li>    
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/loginAfter']">
+                        <span class='glyphicon glyphicon-th-list'></span> Login After
+                    </a>
+                </li>                            
             </ul>
         </div>
     </div>

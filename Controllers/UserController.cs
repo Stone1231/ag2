@@ -24,6 +24,11 @@ namespace ag2.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
+
+         /// <summary>
+        /// Gets all the users.
+        /// </summary>
+        /// <returns>Returns all the users</returns>
         // GET: api/User
         [HttpGet]
         public IEnumerable<User> GetUsers()

@@ -27,10 +27,6 @@ import { AuthService } from "../../services/auth.service";
         <td></td>
         <td><input type="button" (click)="login()" value="Login" /></td>
     </tr>
-    <tr>
-    <td>session</td>
-    <td>{{getName}} {{getRole}}</td>
-    </tr>
 </table>
           </div>
     `
@@ -40,8 +36,7 @@ export class LoginComponent implements OnDestroy {
 
     userName: string;
     password: string;
-    getName: string;
-    getRole: string;
+
     private postStream$: Subscription;
 
     constructor(private authService: AuthService, private router: Router) { }
@@ -57,13 +52,7 @@ export class LoginComponent implements OnDestroy {
                 //     alert(result.msg);
                 // }
 
-                this.authService.getUserInfo$().subscribe(
-                    r => {
-                        this.getName = r.userName;
-                        this.getRole = r.role;
-                    }
-                );
-                //this.router.navigate(["home"]);
+                this.router.navigate(["loginAfter"]);
             }
         )
     }

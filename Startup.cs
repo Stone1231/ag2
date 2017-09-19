@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -10,11 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ag2.Models;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Linq;
 
 namespace ag2
 {
@@ -53,7 +50,12 @@ namespace ag2
                     // machines which should have synchronised time, this can be set to zero. and default value will be 5minutes
                     ClockSkew = TimeSpan.FromMinutes(0)
                 };
+            });
 
+            // Register the Swagger generator, defining one or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
         }
 
@@ -102,7 +104,7 @@ namespace ag2
                         context.Response.StatusCode = 500;
                         context.Response.ContentType = "application/json";
                         await context.Response.WriteAsync(JsonConvert.SerializeObject(
-                        new 
+                        new
                         {
                             State = -1,
                             Msg = error.Error.Message
@@ -125,6 +127,15 @@ namespace ag2
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
+            });
+
+            // Enables middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enables middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
             });
         }
     }
