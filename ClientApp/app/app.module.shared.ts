@@ -11,6 +11,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { UsersComponent } from './components/users/users.component';
 import { UserComponent } from './components/users/user.component';
+import { FileComponent } from './components/file/file.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginAfterComponent } from './components/login/loginAfter.component';
 @NgModule({
@@ -21,6 +22,7 @@ import { LoginAfterComponent } from './components/login/loginAfter.component';
         FetchDataComponent,
         UsersComponent,
         UserComponent,
+        FileComponent,
         LoginComponent,
         LoginAfterComponent,
         HomeComponent
@@ -35,6 +37,7 @@ import { LoginAfterComponent } from './components/login/loginAfter.component';
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'users', component: UsersComponent },
+            { path: 'file', component: FileComponent },
             { path: 'login', component: LoginComponent },
             { path: 'loginAfter', component: LoginAfterComponent },
             { path: '**', redirectTo: 'home' }

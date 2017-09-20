@@ -13,30 +13,37 @@ namespace ag2.Controllers
     [Route("api/file")]
     public class FileController : Controller{
 
-        [HttpGet("user")]
-        public IActionResult UserFile()
+        [HttpPost("ufiles")]
+        public IActionResult Uploads(List<IFormFile> files)
         {
-            return NotFound();
-        }
+            var list= new List<String>();
 
-        [HttpPost("upload")]
-        public IActionResult Upload(List<IFormFile> files)
-        {
             foreach (var file in files)
             {
+                list.Add(file.FileName);
                 // to do save
             }
 
-            return Ok();
+            return Ok(list);
         } 
 
-        [HttpPut("upload2")]
-        public IActionResult Upload2(IFormFile file)
+        [HttpPost("ufile")]
+        public IActionResult Upload(IFormFile file)
         {
            var _file = file; 
 
-            return Ok();
+            return Ok(file.FileName);
         } 
+
+        [HttpPost("ufile2")]
+        public IActionResult Upload2(IFormFile file1, IFormFile file2)
+        {
+            var list = new List<String>();
+            list.Add(file1.FileName);
+            list.Add(file2.FileName);
+
+            return Ok(list);
+        }
     }
 }
 

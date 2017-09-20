@@ -118,6 +118,15 @@ namespace ag2
 
             app.UseAuthentication();
 
+            // Enables middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enables middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -127,15 +136,6 @@ namespace ag2
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
-            });
-
-            // Enables middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enables middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
             });
         }
     }
