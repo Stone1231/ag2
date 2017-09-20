@@ -14,6 +14,7 @@ import { UserComponent } from './components/users/user.component';
 import { FileComponent } from './components/file/file.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginAfterComponent } from './components/login/loginAfter.component';
+import { InputdataComponent } from './components/inputdata/Inputdata.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -25,6 +26,7 @@ import { LoginAfterComponent } from './components/login/loginAfter.component';
         FileComponent,
         LoginComponent,
         LoginAfterComponent,
+        InputdataComponent,
         HomeComponent
     ],
     imports: [
@@ -38,6 +40,7 @@ import { LoginAfterComponent } from './components/login/loginAfter.component';
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'users', component: UsersComponent },
             { path: 'file', component: FileComponent },
+            { path: 'inputdata', component: InputdataComponent },
             { path: 'login', component: LoginComponent },
             { path: 'loginAfter', component: LoginAfterComponent },
             { path: '**', redirectTo: 'home' }

@@ -1,0 +1,43 @@
+<table>
+    <tbody>
+        <tr>
+            <th>可下拉選也可任意輸入</th>
+            <td>
+                <input list="browsers" [(ngModel)]="value1">
+                <datalist id="browsers">
+                    <option *ngFor="let item of selects">
+                    {{item.name}}
+                    </option>
+                </datalist>
+            </td>
+            <td>
+                {{value1}}
+            </td>
+        </tr>
+        <tr>
+            <th>下拉單選</th>
+            <td>
+                <select [(ngModel)]="value2">
+                    <option [ngValue]="defItem.value">{{defItem.name}}</option>
+                    <option *ngFor="let item of selects" 
+                    [ngValue]="item.value" 
+                    >
+                        {{item.name}}
+                    </option>
+                </select>
+
+                <!-- <select [(ngModel)]="value2">
+                        <option selected value="">请选择</option>
+                    <option value="1">選擇1</option>
+                    <optgroup label="group1">
+                       <option value="2">選擇2</option> 
+                       <option value="3">選擇3</option>
+                    </optgroup>
+                </select> -->
+            </td>
+            <td>
+                {{value2}}
+            </td>
+        </tr>
+    </tbody>
+</table>

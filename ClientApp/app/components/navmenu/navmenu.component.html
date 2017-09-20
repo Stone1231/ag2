@@ -33,20 +33,25 @@
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                        <a [routerLink]="['/file']">
+                    <a [routerLink]="['/file']">
                             <span class='glyphicon glyphicon-th-list'></span> File
                         </a>
-                    </li>                
+                </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/inputdata']">
+                            <span class='glyphicon glyphicon-th-list'></span> Input data
+                        </a>
+                </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/login']">
                         <span class='glyphicon glyphicon-th-list'></span> Login
                     </a>
-                </li>    
+                </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/loginAfter']">
                         <span class='glyphicon glyphicon-th-list'></span> Login After
                     </a>
-                </li>                            
+                </li>
             </ul>
         </div>
     </div>
